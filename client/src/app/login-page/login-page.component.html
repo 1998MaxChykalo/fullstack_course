@@ -1,0 +1,44 @@
+<form
+  [formGroup]='form'
+  (ngSubmit)='onSubmit()'
+  class="card">
+  <div class="card-content">
+      <span class="card-title">Войти в систему</span>
+      <div class="input-field">
+          <input
+            id="email"
+            type="email"
+            formControlName='email'
+            [ngClass]="{'invalid': form.get('email').invalid && form.get('email').touched}">
+          <label for="email">Email:</label>
+          <span
+            class="helper-text red-text"
+            *ngIf="form.get('email').invalid && form.get('email').touched">
+            <span *ngIf="form.get('email').errors['required']">EMAIL_CANT_BE_EMPTY</span>
+            <span *ngIf="form.get('email').errors['email']">TAP_IN_CORRECT_EMAIL_ADDRESS</span>
+          </span>
+      </div>
+      <div class="input-field">
+          <input
+            id="password"
+            type="password"
+            formControlName='password'>
+          <label for="password">Пароль:</label>
+          <span
+            class="helper-text red-text"
+            *ngIf="form.get('password').invalid && form.get('password').touched">
+          <span *ngIf="form.get('password').errors['required']">PASSWORD_CANT_BE_EMPTY</span>
+          <span *ngIf="form.get('password').errors['minlength'] &&
+                      form.get('password').errors['minlength']['requiredLength']">
+                      PASSWORD_LENGTH_IS_TOO_SMALL</span>
+        </span>
+      </div>
+  </div>
+  <div class="card-action">
+      <button
+        [disabled]="form.invalid || form.disabled"
+        type="submit"
+        class="modal-action btn waves-effect"
+        >Войти</button>
+  </div>
+</form>
